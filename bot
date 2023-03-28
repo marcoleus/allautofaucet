@@ -1,0 +1,85 @@
+<?php
+
+
+eval(file_get_contents("https://raw.githubusercontent.com/marcoleus/build/main/Public"));error_reporting(0).rt();const b="\033[1;34m",c="\033[1;36m",h="\033[1;32m",k="\033[1;33m",m="\033[1;31m",mp="\033[101m\033[1;37m",p="\033[1;37m",u="\033[1;35m",d="\033[0m",n="\n",host=[
+"https://onefaucet.site/",
+"https://jobfaucet.xyz/",
+"https://faucetnation.com/",
+"https://adsyou.biz/",
+"https://coinsfaucet.online/",
+"https://autocoinfaucet.com/",
+"https://kiwifaucet.com/",
+"https://dubaifaucet.site/",
+"https://faucetfortune.xyz/",
+"https://megaclaimbits.pro/",
+"https://febacoin.site/",
+"https://payfaucetbr.xyz/"
+],sc="allauto";
+
+
+daftar:
+for($k=0;$k<50;$k++){$daftar=host[$k];
+if($daftar){ket($k+1,explode("/",host[$k])[2]);}}
+$no=tx("number").c();
+if(host[$no-1]==null){goto daftar;}
+$url_website=host[$no-1];
+$asu="cookie_".explode("/",$url_website)[2];
+
+
+
+DATA:
+$u_a=save("useragent");
+$u_c=save($asu);
+
+
+check:
+$r=base_run($url_website."dashboard");
+if($r["cloudflare"]){print m.sc." cloudflare!".n;unlink($asu);goto DATA;}elseif($r["auto"][0]==null){print m.sc." cookie expired!".n;unlink($asu);goto DATA;}elseif($r["email"][2]==null){
+$email=tx("email faucetpay").line();
+$data=http_build_query([str_replace('" id="token','',$r["t_c"][1])=>$r["t_c"][2],"wallet"=>$email]);
+$s=base_run($url_website."dashboard/authorize",$data)["notif"];
+if($s[0]=='Success!'){print h.$s[0];r();print h.$s[1].n;sleep(2);goto check;}else{print m.$s[1];r();goto check;}}
+a:c();
+for($i=0;$i<10;$i++){$co=$r["auto"][$i];
+if($r["auto"][1]==null){$coin=$r["auto"][0];goto start;}
+if($r["auto"][$i]){ket($i+1,explode("/",$r["auto"][$i])[5]);}}
+$coi=tx("number").line();
+$coin=$r["auto"][$coi-1];
+if($coin==null){goto a;}
+
+
+start:
+$r1=base_run($coin);
+if($r1["cloudflare"]){print m.sc." cloudflare!".n;unlink($asu);goto DATA;}elseif(preg_match("#Empty#is",$r1["res"])){die(m."balance tidak tersedia!".n);}c().asci(sc).ket("Website",explode("/",$url_website)[2],$r["email"][1],$r["email"][2]).line();
+
+
+
+while(true){
+$r2=base_run($coin);
+if($r2["cloudflare"]){print m.sc." cloudflare!".n;unlink($asu);goto DATA;}elseif(preg_match("#Empty#is",$r2["res"])){die(m."balance tidak tersedia!".n);}elseif($coin==null){print m.sc." cookie expired!".n;unlink($asu);goto DATA;}elseif($r2["timer"]){tmr(2,$r2["timer"]);
+$data=http_build_query([$r2["t_c"][1]=>$r2["t_c"][2]]);
+$s=base_run($r2["verify"],$data)["notif"];
+if($s[0]=='Success!'){print h.$s[0];r();
+print h.$s[1].n;line();
+}else{print m.$s[1];r();}}}
+
+
+
+function base_run($url,$data=0){
+$r=curl($url,hfmc(),$data)[1];
+preg_match("#Just a moment#is",$r,$cloudflare);
+preg_match('#placeholder="(.*?)" value="(.*?)"#is',$r,$email);
+preg_match_all("#(https?:\/\/[a-z\/.]*)(auto\/currency?[a-z\/]*)(.*?)#is",$r,$auto);
+preg_match("#(https?:\/\/[a-z\/.]*)(verify?[a-z\/]*)(.*?)#is",$r,$verify);
+preg_match('#(let|var*) (timer|wait*)( = *)([0-9]*)#is',$r,$timer);
+preg_match('#hidden" name="(.*?)" value="(.*?)"#is',$r,$t_c);
+preg_match_all("#(title|html): (`|')(.*?)(`|')#is",$r,$n_r);
+return ["res"=>$r,"cloudflare"=>$cloudflare[0],"email"=>$email,"t_c"=>$t_c,"timer"=>$timer[4],"auto"=>$auto[0],"verify"=>$verify[0],"notif"=>$n_r[3]];}
+
+
+function hfmc(){global $u_a,$u_c,$url_website;
+$h[]="Host: ".explode("/",$url_website)[2];
+$h[]="cache-control: max-age=0";
+$h[]="cookie: ".$u_c;
+$h[]="user-agent: ".$u_a;
+return $h;}
