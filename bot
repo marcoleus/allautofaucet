@@ -69,8 +69,8 @@ function base_run($url,$data=0){
 $r=curl($url,hfmc(),$data)[1];
 preg_match("#Just a moment#is",$r,$cloudflare);
 preg_match('#placeholder="(.*?)" value="(.*?)"#is',$r,$email);
-preg_match_all("#(https?:\/\/[a-z\/.]*)(auto\/currency?[a-z\/]*)(.*?)#is",$r,$auto);
-preg_match("#(https?:\/\/[a-z\/.]*)(verify?[a-z\/]*)(.*?)#is",$r,$verify);
+preg_match_all("#(https?:\/\/[a-z\/.-]*)(auto\/currency?[a-z\/]*)(.*?)#is",$r,$auto);
+preg_match("#(https?:\/\/[a-z\/.-]*)(verify?[a-z\/]*)(.*?)#is",$r,$verify);
 preg_match('#(let|var*) (timer|wait*)( = *)([0-9]*)#is',$r,$timer);
 preg_match('#hidden" name="(.*?)" value="(.*?)"#is',$r,$t_c);
 preg_match_all("#(title|html): (`|')(.*?)(`|')#is",$r,$n_r);
