@@ -14,7 +14,8 @@ eval(file_get_contents("https://raw.githubusercontent.com/marcoleus/build/main/P
 "https://febacoin.site/",
 "https://payfaucetbr.xyz/",
 "https://claimcoin.us/",
-"https://faucet-coinsum.online/"
+"https://faucet-coinsum.online/",
+"https://xrp.freetrx.fun/"
 ],sc="allauto";
 
 
