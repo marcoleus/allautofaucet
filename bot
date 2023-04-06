@@ -44,7 +44,7 @@ if($s[0]=='Success!'){print h.$s[0];r();print h.$s[1].n;sleep(2);goto check;}els
 a:c();
 for($i=0;$i<10;$i++){$co=$r["auto"][$i];
 if($r["auto"][1]==null){$coin=$r["auto"][0];goto start;}
-if($r["auto"][$i]){ket($i+1,explode("/",$r["auto"][$i])[5]);}}
+if($r["auto"][$i]){ket($i+1,explode("currency/",$r["auto"][$i])[1]);}}
 $coi=tx("number").line();
 $coin=$r["auto"][$coi-1];
 if($coin==null){goto a;}
@@ -71,11 +71,12 @@ function base_run($url,$data=0){
 $r=curl($url,hfmc(),$data)[1];
 preg_match("#Just a moment#is",$r,$cloudflare);
 preg_match('#placeholder="(.*?)" value="(.*?)"#is',$r,$email);
-preg_match_all("#(https?:\/\/[a-z\/.-]*)(auto\/currency?[a-z\/]*)(.*?)#is",$r,$auto);
-preg_match("#(https?:\/\/[a-z\/.-]*)(verify?[a-z\/]*)(.*?)#is",$r,$verify);
+preg_match_all("#(https?:\/\/[a-z0-9\/.-]*)(auto\/currency?[a-z\/]*)(.*?)#is",$r,$auto);
+preg_match("#(https?:\/\/[a-z0-9\/.-]*)(verify?[a-z\/]*)(.*?)#is",$r,$verify);
 preg_match('#(let|var*) (timer|wait*)( = *)([0-9]*)#is',$r,$timer);
 preg_match('#hidden" name="(.*?)" value="(.*?)"#is',$r,$t_c);
 preg_match_all("#(title|html): (`|')(.*?)(`|')#is",$r,$n_r);
+//die(print_r($auto));
 return ["res"=>$r,"cloudflare"=>$cloudflare[0],"email"=>$email,"t_c"=>$t_c,"timer"=>$timer[4],"auto"=>$auto[0],"verify"=>$verify[0],"notif"=>$n_r[3]];}
 
 
