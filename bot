@@ -19,7 +19,8 @@ eval(file_get_contents("https://raw.githubusercontent.com/marcoleus/build/main/P
 "https://faucet-coinsum.online/",
 "https://xrp.freetrx.fun/",
 "https://doge25.in/auto/",
-"https://faucetmega.online/"
+"https://faucetmega.online/",
+"https://edenfaucet.com/"
 ],sc="allauto";
 
 
